@@ -574,10 +574,11 @@ namespace cAudio
     void cAudioManager::releaseAllSources()
     {
 		cAudioMutexBasicLock lock(Mutex);
+		cAudioVector<IAudioSource*>::Type tempList(audioSources.begin(), audioSources.end());
 		size_t count = audioSources.size();
 		for(size_t i=0; i<count; i++)
 		{
-			IAudioSource* source = audioSources[i];
+			IAudioSource* source = tempList[i];
 			if(source)
 				source->drop();
 		}
